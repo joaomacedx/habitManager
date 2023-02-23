@@ -10,6 +10,8 @@ app.use(express.json());
 
 const users = [];
 
+
+//Middlewares 
 function checksExistsUserAccount(request, response, next) {
    const{ username } = request.headers;
 
@@ -24,6 +26,16 @@ function checksExistsUserAccount(request, response, next) {
    return next();
 }
 
+function checksCreateTodosUserAvailability(request, response, next) {
+
+}
+function checksTodoExists(request, response, next) {
+
+}
+function findUserById(request, response, next) {
+
+}
+// Routes 
 app.post('/users', (request, response) => {
    const { name, username } = request.body;
 
@@ -40,6 +52,7 @@ app.post('/users', (request, response) => {
     id: uuidv4(),
     name,
     username,
+    pro:false,
     todos:[]
    }
    users.push(user); 
@@ -114,4 +127,11 @@ app.delete('/todos/:id', checksExistsUserAccount, (request, response) => {
    response.status(204).send();
 });
 
-module.exports = app;
+module.exports = {
+  app,
+  users,
+  checksExistsUserAccount,
+  checksCreateTodosUserAvailability,
+  checksTodoExists,
+  findUserById
+};

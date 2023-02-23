@@ -110,39 +110,30 @@ app.post('/todos', checksExistsUserAccount, checksCreateTodosUserAvailability, (
 app.put('/todos/:id', checksTodoExists, (request, response) => {
    const { title, deadline } = request.body;
    const { todo } = request;
-   
+
    todo.title = title;
    todo.deadline = new Date(deadline);
    return response.json(todo);
 });
 
-app.patch('/todos/:id/done', checksExistsUserAccount, (request, response) => {
-   const { user } = request;
-   const { id } = request.params;
-   const todo = user.todos.find((todo)=>
-     todo.id === id
-   );
-   if(!todo){
-    return response.status(404).json({
-      error: 'Todo not found' 
-    });
-   } 
+app.patch('/todos/:id/done', checksTodoExists, (request, response) => {
+   const { todo } = request;
+
    todo.done = true;
+
    return response.json(todo);
 });
 
-app.delete('/todos/:id', checksExistsUserAccount, (request, response) => {
-   const { user } = request;
-   const { id } = request.params;
-   const todoIndex = user.todos.findIndex((todo)=>
-     todo.id === id
-   );
+app.delete('/todos/:id', checksExistsUserAccount, checksTodoExists, (request, response) => {
+   const { user, todo } = request;
+   const todoIndex = user.todos.indexOf(todo);
    if(todoIndex === -1){
      return response.status(404).json({
        error: 'Todo not found' 
      });
    }
    user.todos.splice(todoIndex, 1);
+   
    response.status(204).send();
 });
 

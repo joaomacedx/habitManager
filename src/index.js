@@ -58,6 +58,8 @@ function findUserById(request, response, next) {
    request.user = user;
 }
 // Routes 
+
+// Add User route 
 app.post('/users', (request, response) => {
    const { name, username } = request.body;
 
@@ -82,16 +84,18 @@ app.post('/users', (request, response) => {
    return response.status(201).json(user);
 });
 
+// Get users by id Route
 app.get('/users/:id', findUserById, (request, response)=> {
    const { user } = request;
    return response.json(user);
 });
-
+// Get all todos Route
 app.get('/todos', checksExistsUserAccount, (request, response) => {
    const { user } = request;
    return response.json(user.todos);
 });
 
+// Post todo Route
 app.post('/todos', checksExistsUserAccount, checksCreateTodosUserAvailability, (request, response) => {
    const { user } = request;
    const { title, deadline } = request.body;
@@ -106,7 +110,7 @@ app.post('/todos', checksExistsUserAccount, checksCreateTodosUserAvailability, (
    user.todos.push(newTodo);
    return response.status(201).json(newTodo);
 });
-
+// Put todo title by id Route
 app.put('/todos/:id', checksTodoExists, (request, response) => {
    const { title, deadline } = request.body;
    const { todo } = request;
@@ -115,7 +119,7 @@ app.put('/todos/:id', checksTodoExists, (request, response) => {
    todo.deadline = new Date(deadline);
    return response.json(todo);
 });
-
+// Patch todo to done by id Route
 app.patch('/todos/:id/done', checksTodoExists, (request, response) => {
    const { todo } = request;
 
@@ -123,7 +127,7 @@ app.patch('/todos/:id/done', checksTodoExists, (request, response) => {
 
    return response.json(todo);
 });
-
+// Delete todo by id Route
 app.delete('/todos/:id', checksExistsUserAccount, checksTodoExists, (request, response) => {
    const { user, todo } = request;
    const todoIndex = user.todos.indexOf(todo);
@@ -133,7 +137,7 @@ app.delete('/todos/:id', checksExistsUserAccount, checksTodoExists, (request, re
      });
    }
    user.todos.splice(todoIndex, 1);
-   
+
    response.status(204).send();
 });
 

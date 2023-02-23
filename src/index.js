@@ -89,6 +89,19 @@ app.get('/users/:id', findUserById, (request, response)=> {
    const { user } = request;
    return response.json(user);
 });
+
+// Patch user plan to pro Route
+app.patch('/users/:id/pro', findUserById, (request, response)=>{
+   const { user } = request;
+   if(user.pro){
+     return response.status(400).json({
+        error: 'Pro plan is already activated.'
+     });
+   }
+   user.pro = true;
+
+   return response.json(user);
+});
 // Get all todos Route
 app.get('/todos', checksExistsUserAccount, (request, response) => {
    const { user } = request;

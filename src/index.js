@@ -72,7 +72,8 @@ app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
    const { title, deadline } = request.body;
    const { id } = request.params;
    user.todos.find((todo)=>
-     todo.id === id);
+     todo.id === id
+   );
    todo.title = title;
 
    if(!todo){
@@ -85,7 +86,14 @@ app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
 });
 
 app.patch('/todos/:id/done', checksExistsUserAccount, (request, response) => {
-  // Complete aqui
+   const { user } = request;
+   const { id } = request.params;
+   user.todos.find((todo)=>
+     todo.id === id
+   );
+   todo.done = true;
+
+   return response.json(todo);
 });
 
 app.delete('/todos/:id', checksExistsUserAccount, (request, response) => {

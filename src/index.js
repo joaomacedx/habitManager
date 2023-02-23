@@ -74,13 +74,12 @@ app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
    const todo = user.todos.find((todo)=>
      todo.id === id
    );
-   todo.title = title;
-
    if(!todo){
      return response.status(404).json({
        error: 'Todo not found' 
      });
    }
+   todo.title = title;
    todo.deadline = new Date(deadline);
    return response.json(todo);
 });
@@ -113,7 +112,6 @@ app.delete('/todos/:id', checksExistsUserAccount, (request, response) => {
     });
    }
    user.todos.splice(todoIndex, 1);
-
    response.status(204);
 });
 

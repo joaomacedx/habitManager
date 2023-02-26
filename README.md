@@ -31,8 +31,7 @@ não exatamente no objetivo”
 
 ## :rocket: Sobre o desafio
 
-Nesse desafio desenvolvi uma API stateless em usando NodeJS e Express, objetivando aprender os conceitos do Node e a semântica da linguagem JavaScript, além de aprender sobre middlewares. Dessa forma, fui capaz de resolver diversos desafios e adquirir conhecimentos que levarei ao
-longo de toda a minha carreira!
+Nesse desafio desenvolvi uma API stateless usando NodeJS com Express, objetivando aperfeiçoamento dos meus conhecimentos em Back End, resolução de problemas e implementação de requisitos. Aproveitei para me ambientar com a semântica da linguagem JavaScript, além de aprender sobre middlewares e testes com Jest!
 
 Será permitida a criação de um usuário com `name` e `username`, bem como fazer o CRUD de *todos*:
 
